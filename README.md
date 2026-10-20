@@ -70,7 +70,7 @@ E2E dùng Google Chrome đã cài trên máy, chạy trên **bản production t�
 
 Với dịch vụ static hosting khác, chọn build `npm run build`, thư mục xuất bản **`out`**. Website được thiết kế để đặt ở gốc domain, không phải thư mục con. Tham khảo [hướng dẫn static export chính thức của Next.js](https://nextjs.org/docs/app/guides/static-exports).
 
-Bản Sites nếu xuất bản từ phiên làm việc này mặc định chỉ chủ sở hữu xem được; cần đổi chia sẻ trên Sites hoặc deploy Vercel với quyền truy cập phù hợp trước khi gửi cho chị. Không có thông tin cá nhân hoặc tài khoản được thêm vào ứng dụng.
+Bản Sites hiện công khai tại https://lgtcute.berryjam19.chatgpt.site theo cấu hình chia sẻ hiện có của chủ sở hữu. Không có thông tin cá nhân hoặc tài khoản được thêm vào ứng dụng.
 
 ## Cấu trúc
 

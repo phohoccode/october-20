@@ -11,6 +11,8 @@ Môi trường: Windows, Node.js 22.13.1, npm 10.9.2, Next.js 16.4.2, React 19.3
 | `npm run test:e2e` | **10/10 đạt**, lần chạy cuối 32,2 giây trên bản production; chi tiết bên dưới |
 | `npm audit --omit=dev` | 0 lỗ hổng trong dependencies production |
 
+Redeploy nhạc ngày 20/10/2026: chạy lại `npm run build` thành công và `node node_modules/@playwright/test/cli.js test --grep music` đạt **2/2** (5,5 giây), gồm phát/dừng nhạc mới và xử lý lỗi tải. Các kiểm tra giao diện phía dưới là kết quả của lần triển khai trước.
+
 10 bài E2E kiểm tra:
 
 1. Mở quà, nội dung tiếng Việt, nút đọc ngay, chạm hoa hiện lời nhắn; mở/đóng thiệp bằng nút và Escape, trả focus về nút mở; tặng bó hoa; 20 lần nhận lời chúc không lặp ngay; mở/quay lại từ màn hình cuối. Đồng thời theo dõi lỗi JavaScript và HTTP >= 400 trong luồng này.
@@ -25,7 +27,7 @@ Kiểm tra Lighthouse qua Chrome DevTools ở trạng thái trang chính (snapsh
 
 ## Giới hạn và tài nguyên cần thêm
 
-- Nhạc dùng tệp `public/music/lgt.mp3` xuất hiện trong workspace trong phiên làm việc. Tệp cuối có 1.610.441 byte; SHA-256 của source và bản build đã khớp: `6ce57a5347ad1628901b7ae5a88fe690410b018402e14a2d0fec6e317cd4b3c5`. Đã kiểm tra phát/dừng qua Audio API và giả lập tải lỗi; chưa nghe đánh giá âm thanh bằng loa/tai nghe. Khi thay nhạc, dùng tệp có quyền sử dụng và sửa `music.src`; đặt `null` để bỏ nhạc. Trạng thái cấu hình `null` cũng đã được kiểm thử thành công trước khi tích hợp tệp này.
+- Nhạc hiện dùng tệp `public/music/lgt.mp3` mới do người dùng thay. Tệp có 1.286.522 byte; SHA-256 của source và bản build đã khớp: `71ab3e6efaf61c19f90251dbc7fc3707aa24db3654d9fb2143e371a9c49b9e09`. Đã kiểm tra phát/dừng qua Audio API và giả lập tải lỗi; chưa nghe đánh giá âm thanh bằng loa/tai nghe. Khi thay nhạc, dùng tệp có quyền sử dụng và sửa `music.src`; đặt `null` để bỏ nhạc. Trạng thái cấu hình `null` cũng đã được kiểm thử thành công trước khi tích hợp tệp này.
 - Chưa thử trực tiếp trên điện thoại vật lý, Safari/iOS hay Firefox; responsive và reduced motion được kiểm tra trên Chromium.
 - Chưa đo hiệu năng CPU/GPU hoặc Lighthouse Performance trên thiết bị yếu; số lượng phần tử hiệu ứng được giới hạn, animation chủ yếu dùng transform/opacity.
 - `npm audit` toàn bộ báo 5 cảnh báo high trong chuỗi công cụ phát triển `eslint-config-next → @next/eslint-plugin-next → fast-glob → micromatch → braces` (GHSA-vfj7-8cjw-p6xm). Không nằm trong dependency production. Không tự hạ Next/ESLint sang major cũ theo đề xuất `audit fix --force`.
