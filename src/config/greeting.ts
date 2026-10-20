@@ -49,6 +49,6 @@ export const greeting: GreetingConfig = {
   ],
   bouquetMessage: "Bó hoa này em gửi tặng chị, chúc chị 20/10 thật vui nhé!",
   finalMessage: "Mong chị luôn hạnh phúc, không chỉ trong ngày hôm nay mà cả những ngày sau này nữa. Chúc chị luôn gặp những người chân thành, những điều tử tế và thật nhiều bình yên. 20/10 vui vẻ nha chị! 💗",
-  music: { src: null, volume: 0.3 },
+  music: { src: "/music/lgt.mp3", volume: 0.3 },
   effects: { petals: true, cursor: true, petalCount: 14 },
 };

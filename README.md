@@ -38,7 +38,7 @@ Sửa **`src/config/greeting.ts`**:
 | `music.src`, `music.volume` | Đường dẫn nhạc và âm lượng từ 0 đến 1 |
 | `effects` | Mặc định cánh hoa, gió theo con trỏ, số cánh hoa (tối đa 24) |
 
-Để thêm nhạc, đặt **tệp bạn có quyền sử dụng** vào `public/music/gentle-piano.mp3`, rồi đặt `music.src: "/music/gentle-piano.mp3"`. Không có nhạc vẫn xem toàn bộ món quà. Nút nhạc luôn thể hiện trạng thái; trang xử lý lỗi tải/phát bằng thông báo. Âm thanh không tự phát. Các đoạn lời chúc dùng cách xưng hô em–chị; nếu thay người nhận, sửa các đoạn tương ứng.
+Nhạc nền hiện dùng tệp có sẵn trong dự án **`public/music/lgt.mp3`**, âm lượng 30%, mặc định tắt. Để thay nhạc, đặt **tệp bạn có quyền sử dụng** vào `public/music/`, rồi sửa `music.src` sang đường dẫn tương ứng. Đặt `music.src: null` để bỏ nhạc. Không có nhạc vẫn xem toàn bộ món quà. Nút nhạc luôn thể hiện trạng thái; trang xử lý lỗi tải/phát bằng thông báo. Âm thanh không tự phát. Các đoạn lời chúc dùng cách xưng hô em–chị; nếu thay người nhận, sửa các đoạn tương ứng.
 
 ## Chức năng
 

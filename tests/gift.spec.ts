@@ -44,12 +44,17 @@ test("complete gift journey, flowers, wishes and accessible dialogs", async ({ p
   expect(errors).toEqual([]);
 });
 
-test("effect controls and missing optional music", async ({ page }) => {
+test("effect controls and optional music playback", async ({ page }) => {
+  let musicRequests = 0;
+  page.on("request", request => { if (request.url().includes("/music/lgt.mp3")) musicRequests++; });
   await page.goto("/");
+  await page.waitForLoadState("networkidle");
+  expect(musicRequests).toBe(0);
   await page.getByRole("button", { name: "Nhạc: tắt" }).click();
-  await expect(page.getByRole("status")).toContainText("chưa thêm nhạc nền");
+  await expect(page.getByRole("button", { name: "Nhạc: đang phát" })).toHaveAttribute("aria-pressed", "true");
+  expect(musicRequests).toBeGreaterThan(0);
+  await page.getByRole("button", { name: "Nhạc: đang phát" }).click();
   await expect(page.getByRole("button", { name: "Nhạc: tắt" })).toHaveAttribute("aria-pressed", "false");
-  await page.getByRole("button", { name: "Đóng thông báo nhạc" }).click();
   await page.getByRole("button", { name: "Cài đặt hiệu ứng" }).click();
   const petals = page.getByRole("switch", { name: "Cánh hoa bay" });
   await petals.click();
@@ -62,6 +67,17 @@ test("effect controls and missing optional music", async ({ page }) => {
   await expect(wind).toHaveAttribute("aria-checked", "false");
   await page.getByRole("button", { name: "Cài đặt hiệu ứng" }).click();
   await openGift(page);
+});
+
+test("missing music file reports an error and keeps the gift usable", async ({ page }) => {
+  await page.route("**/music/lgt.mp3", route => route.fulfill({ status: 404, body: "Missing test audio" }));
+  await page.goto("/");
+  await page.getByRole("button", { name: "Nhạc: tắt" }).click();
+  await expect(page.locator(".music-notice")).toContainText(/Chưa tải được nhạc|Chưa phát được nhạc/);
+  await expect(page.getByRole("button", { name: "Nhạc: tắt" })).toHaveAttribute("aria-pressed", "false");
+  await page.getByRole("button", { name: "Đóng thông báo nhạc" }).click();
+  await page.getByRole("button", { name: "Mở món quà" }).click();
+  await expect(page.locator(".greeting-hero")).toBeVisible();
 });
 
 for (const width of [360, 390, 430, 768, 1024, 1440]) {
